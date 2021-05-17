@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from '../dataBase';
 
 export default function SignIn() {
   const auth = firebase.auth();
