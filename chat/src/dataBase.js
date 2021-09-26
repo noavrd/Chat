@@ -12,3 +12,5 @@ export const firebaseData = firebase.initializeApp({
   measurementId: 'G-XM6QD30FFK',
 });
 export const provider = new firebase.auth.GoogleAuthProvider();
+
+export const create = firebase.firestore.FieldValue.serverTimestamp();

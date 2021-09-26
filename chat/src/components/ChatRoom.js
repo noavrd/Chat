@@ -1,7 +1,6 @@
-import { firebaseData } from '../dataBase';
+import { firebaseData, create } from '../dataBase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChatMessage from './ChatMessage';
-
 import { useState } from 'react';
 const auth = firebaseData.auth();
 const firestore = firebaseData.firestore();
@@ -17,9 +16,9 @@ export default function ChatRoom() {
     const { uid, photoUrl } = auth.currentUser;
     await messagesRef.add({
       text: formValue,
-      createdAt: firebaseData.firestore.FieldValue.serverTimestamp(),
+      createdAt: create,
       uid,
-      photoUrl,
+      // photoUrl,
     });
     setFormValue('');
   };
