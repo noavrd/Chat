@@ -1,7 +1,7 @@
 import { firebaseData, create } from '../dataBase';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChatMessage from './ChatMessage';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 const auth = firebaseData.auth();
 const firestore = firebaseData.firestore();
 
@@ -10,6 +10,7 @@ export default function ChatRoom() {
   const query = messagesRef.orderBy('createdAt').limit(25);
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
+  const latest = useRef();
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -22,12 +23,14 @@ export default function ChatRoom() {
       photoURL,
     });
     setFormValue('');
+    // latest.current.scrollIntoView({ behavior: 'smooth' });
   };
   return (
     <>
       <div>
         {messages &&
           messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+        <div ref={latest}></div>
       </div>
       <form onSubmit={sendMessage}>
         <input
