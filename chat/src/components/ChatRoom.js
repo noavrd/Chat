@@ -13,12 +13,13 @@ export default function ChatRoom() {
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    const { uid, photoUrl } = auth.currentUser;
+    console.log(auth.currentUser.photoURL);
+    const { uid, photoURL } = auth.currentUser;
     await messagesRef.add({
       text: formValue,
       createdAt: create,
       uid,
-      // photoUrl,
+      photoURL,
     });
     setFormValue('');
   };
