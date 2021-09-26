@@ -1,5 +1,5 @@
-import firebase from '../dataBase';
-const auth = firebase.auth();
+import { firebaseData } from '../dataBase';
+const auth = firebaseData.auth();
 
 export default function ChatMessage(props) {
   const { text, uid, photoUrl } = props.message;
@@ -9,10 +9,6 @@ export default function ChatMessage(props) {
       <div className={`message ${messageClass}`}>
         <p>{text}</p>
       </div>
-      <form>
-        <input />
-        <button type="submit">📩</button>
-      </form>
     </>
   );
 }

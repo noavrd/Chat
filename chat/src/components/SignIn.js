@@ -1,17 +1,16 @@
-import firebase from '../dataBase';
+import { firebaseData, provider } from '../dataBase';
 
+import { useAuthState } from 'react-firebase-hooks/auth';
 export default function SignIn() {
-  const auth = firebase.auth();
+  const auth = firebaseData.auth();
   const signInWithGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(provider);
   };
-
   return (
-    <>
+    <div>
       <button className="sign-in" onClick={signInWithGoogle}>
-        Sign in with Google
+        Sign In with google
       </button>
-    </>
+    </div>
   );
 }
