@@ -7,27 +7,35 @@ const firestore = firebaseData.firestore();
 
 export default function ChatRoom() {
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef.orderBy('createdAt');
   const [messages] = useCollectionData(query, { idField: 'id' });
   const [formValue, setFormValue] = useState('');
   const latest = useRef();
 
   const sendMessage = async (e) => {
     e.preventDefault();
+    if (formValue === '') {
+      return;
+    }
+    const newMessage = formValue;
+    console.log(formValue);
     console.log(auth.currentUser.photoURL);
     const { uid, photoURL } = auth.currentUser;
+    setFormValue('');
+
     await messagesRef.add({
-      text: formValue,
+      text: newMessage,
       createdAt: create,
       uid,
       photoURL,
     });
-    setFormValue('');
-    // latest.current.scrollIntoView({ behavior: 'smooth' });
+
+    latest.current.scrollIntoView({ behavior: 'smooth' });
   };
   return (
     <>
       <div>
+        {console.log(messages.length)}
         {messages &&
           messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
         <div ref={latest}></div>
